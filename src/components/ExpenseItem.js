@@ -1,5 +1,13 @@
 function ExpenseItem() {
-  return <h2>First Expense React component :)</h2>;
+  return (
+    <div>
+      <div>Date</div>
+      <div>
+        <h2>Title</h2>
+        <div>amount</div>
+      </div>
+    </div>
+  );
 }
 
 export default ExpenseItem;
