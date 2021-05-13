@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./ExpenseForm.css";
 
-function ExpenseForm() {
+function ExpenseForm(props) {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
@@ -12,17 +12,17 @@ function ExpenseForm() {
   //   enteredDate: "",
   //   enteredAmount: "",
   // });
+  // 1.1 [Can Fail] The three states needs to be updated each time to avoid losing a part of it
+  // setUserInput({
+  //   ...userInput,
+  //   enteredTitle: "",
+  // });
+  // 2. [Best Practice] Correct way of doing this
+  // setUserInput((prevState)=>{
+  //   return {...prevState, enteredTitle: event.target.value}
+  // })
   const titleChangeHandler = (event) => {
     setEnteredTitle(event.currentTarget.value);
-    // 1.1 [Can Fail] The three states needs to be updated each time to avoid losing a part of it
-    // setUserInput({
-    //   ...userInput,
-    //   enteredTitle: "",
-    // });
-    // 2. [Best Practice] Correct way of doing this
-    // setUserInput((prevState)=>{
-    //   return {...prevState, enteredTitle: event.target.value}
-    // })
   };
 
   const amountChangeHandler = (event) => {
@@ -32,12 +32,32 @@ function ExpenseForm() {
   const dateChangeHandler = (event) => {
     setEnteredDate(event.currentTarget.value);
   };
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+    // Merging all date into one object
+    const expenseData = {
+      title: enteredTitle,
+      amount: enteredAmount,
+      date: new Date(enteredDate),
+    };
+    props.onSaveExpenseData(expenseData);
+    console.log(expenseData);
+    // Resetting input field to empty
+    setEnteredDate("");
+    setEnteredTitle("");
+    setEnteredAmount("");
+  };
   return (
-    <form action="">
+    <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
         <div className="new-expense__control">
           <label>Title</label>
-          <input type="text" onChange={titleChangeHandler} />
+          <input
+            type="text"
+            value={enteredTitle} //Two way binding
+            onChange={titleChangeHandler}
+          />
         </div>
         <div className="new-expense__control">
           <label>Amount</label>
@@ -45,6 +65,7 @@ function ExpenseForm() {
             type="number"
             min="0.01"
             step="0.01"
+            value={enteredAmount} //Two way binding
             onChange={amountChangeHandler}
           />
         </div>
@@ -54,6 +75,7 @@ function ExpenseForm() {
             type="date"
             min="2019-01-01"
             max="2022-12-31"
+            value={enteredDate} //Two way binding
             onChange={dateChangeHandler}
           />
         </div>
