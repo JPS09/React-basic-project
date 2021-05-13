@@ -14,12 +14,12 @@ function ExpenseForm() {
   // });
   const titleChangeHandler = (event) => {
     setEnteredTitle(event.currentTarget.value);
-    // 1.1 The three states needs to be updated each time to avoid losing a part of it
+    // 1.1 [Can Fail] The three states needs to be updated each time to avoid losing a part of it
     // setUserInput({
     //   ...userInput,
     //   enteredTitle: "",
     // });
-    // 2. Correct way of doing this
+    // 2. [Best Practice] Correct way of doing this
     // setUserInput((prevState)=>{
     //   return {...prevState, enteredTitle: event.target.value}
     // })
