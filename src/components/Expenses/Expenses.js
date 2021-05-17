@@ -1,4 +1,4 @@
-import ExpenseItem from "./ExpenseItem.js";
+import ExpenseList from "./ExpenseList.js";
 import ExpenseFilter from "./ExpenseFilter.js";
 import Card from "../Card.js";
 import "./Expenses.css";
@@ -11,26 +11,15 @@ function Expenses(props) {
   );
   const selectedYearHandler = (selectedYear) => {
     setFilteredYear(selectedYear);
-    console.log(filteredExpenses);
   };
+
   return (
     <Card className="expenses">
       <ExpenseFilter
         onSelectedYear={selectedYearHandler}
         selected={filteredYear}
       ></ExpenseFilter>
-      {/* Shorter way than ternary: */}
-      {filteredExpenses.length === 0 && (
-        <p>No displayable expenses</p>
-      )}
-      {filteredExpenses.map((expense) => (
-        <ExpenseItem
-          key={expense.id}
-          title={expense.title}
-          amount={expense.amount}
-          date={expense.date}
-        />
-      ))}
+      <ExpenseList data={filteredExpenses} />
     </Card>
   );
 }
