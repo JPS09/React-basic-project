@@ -7,11 +7,11 @@ import { useState } from "react";
 function Expenses(props) {
   const [filteredYear, setFilteredYear] = useState("2020");
   const filteredExpenses = props.data.filter(
-    (expense) => expense.date.getFullYear() === parseInt(filteredYear,10)
+    (expense) => expense.date.getFullYear() === parseInt(filteredYear, 10)
   );
   const selectedYearHandler = (selectedYear) => {
     setFilteredYear(selectedYear);
-    console.log(filteredExpenses)
+    console.log(filteredExpenses);
   };
   return (
     <Card className="expenses">
@@ -19,6 +19,10 @@ function Expenses(props) {
         onSelectedYear={selectedYearHandler}
         selected={filteredYear}
       ></ExpenseFilter>
+      {/* Shorter way than ternary: */}
+      {filteredExpenses.length === 0 && (
+        <p>No displayable expenses</p>
+      )}
       {filteredExpenses.map((expense) => (
         <ExpenseItem
           key={expense.id}
