@@ -49,14 +49,6 @@ function ExpenseForm(props) {
     setEnteredAmount("");
   };
 
-  const [displayFlag, setDisplaygFlag] = useState(true);
-  const displayHandler = () => {
-    setDisplaygFlag(!displayFlag);
-  };
-
-  if (displayFlag) {
-    return <button onClick={displayHandler}>Add new expense</button>;
-  }
   return (
     <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
@@ -90,7 +82,9 @@ function ExpenseForm(props) {
         </div>
       </div>
       <div className="new-expense__actions">
-        <button onClick={displayHandler}>Cancel</button>
+        <button type="button" onClick={props.cancelHandler}>
+          Cancel
+        </button>
         <button type="submit">Add expense</button>
       </div>
     </form>
