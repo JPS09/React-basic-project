@@ -38,7 +38,7 @@ function ExpenseForm(props) {
     // Merging all date into one object
     const expenseData = {
       title: enteredTitle,
-      amount: enteredAmount,
+      amount: +enteredAmount,
       date: new Date(enteredDate),
     };
     props.onSaveExpenseData(expenseData);
@@ -48,6 +48,7 @@ function ExpenseForm(props) {
     setEnteredTitle("");
     setEnteredAmount("");
   };
+
   return (
     <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
@@ -81,6 +82,9 @@ function ExpenseForm(props) {
         </div>
       </div>
       <div className="new-expense__actions">
+        <button type="button" onClick={props.cancelHandler}>
+          Cancel
+        </button>
         <button type="submit">Add expense</button>
       </div>
     </form>
